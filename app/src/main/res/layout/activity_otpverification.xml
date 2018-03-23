@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/prl"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context="com.a6studios.fbchat.package_OTPVerifiation.OTPVerification">
+
+    <EditText
+        android:id="@+id/et_pno"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter your phone number"
+        android:inputType="phone"
+        android:focusable="true"
+        android:layout_centerInParent="true"/>
+    <EditText
+        android:id="@+id/et_otp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter otp"
+        android:maxLength="8"
+        android:inputType="number"
+        android:focusable="true"
+        android:layout_alignStart="@+id/et_pno"
+        android:layout_alignLeft="@+id/et_pno"
+        android:layout_below="@+id/et_pno"/>
+
+    <Button
+        android:id="@+id/btn_otp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/et_otp"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:text="Send OTP" />
+
+</RelativeLayout>

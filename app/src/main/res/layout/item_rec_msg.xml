@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="left"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:clickable="true"
+        android:autoLink="all"
+        android:id="@+id/rec_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="30dp"
+        android:layout_marginTop="5dp"
+        android:textSize="18sp"
+        android:maxWidth="330dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="10dp"
+        android:layout_gravity="left"
+        android:linksClickable="true"
+        android:background="@drawable/chat_bg_rec"/>
+
+    <!--<View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"/>-->
+</LinearLayout>
