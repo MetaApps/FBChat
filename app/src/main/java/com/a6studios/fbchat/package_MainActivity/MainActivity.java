@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.a6studios.fbchat.package_ChatBox.ChatBox;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -76,15 +77,12 @@ public class MainActivity extends AppCompatActivity {
                                 POJO_Users u = document.toObject(POJO_Users.class);
                                 al.add(u);
                                 mAdapter.addUser(u);
-                                Toast.makeText(getApplicationContext(),"Name "+u.getName(),Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Log.d("ERROR", "Error getting documents: ", task.getException());
                         }
                     }
                 });
-        mAdapter.addListUsers(al);
-
     }
 
     public void onStart() {
@@ -100,7 +98,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        FirebaseAuth.getInstance().signOut();
-        onStart();
+        View v = view;
+        Intent i;
+        switch (v.getId())
+        {
+            case R.id.logout_btn:
+                FirebaseAuth.getInstance().signOut();
+                i=new Intent(this,OTPVerification.class);
+                startActivity(i);
+                finish();
+                break;
+            case  R.id.btn_openSampleChat:
+                i=new Intent(this, ChatBox.class);
+                startActivity(i);
+                break;
+
+
+        }
     }
 }
