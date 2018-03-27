@@ -8,6 +8,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class POJO_Users {
     private String name;
+    private String UID;
+
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
 
     public POJO_Users(){}
 
@@ -19,6 +28,7 @@ public class POJO_Users {
         }
         else
             name = u.getDisplayName();
+        UID = u.getUid();
     }
     POJO_Users(String s)
     {

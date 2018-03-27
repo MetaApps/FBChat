@@ -103,6 +103,7 @@ public class FirestoreDataBase {
     {
         HashMap<String,String> m = new HashMap<String, String>();
         m.put("name",u.getName());
+        m.put("UID",u.getUID());
         db.collection(rUsers).document(getUserId()).set(m);
     }
 
