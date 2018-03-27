@@ -5,31 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/chat_bg"
+    android:background="#efe7de"
     tools:context="com.a6studios.fbchat.package_ChatBox.ChatBox">
-    <android.support.design.widget.AppBarLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/action_bar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:text="Sample"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMessages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/action_bar"
         android:foregroundGravity="bottom"
         android:layout_marginTop="5dp"
         android:layout_above="@id/msg_cv"/>

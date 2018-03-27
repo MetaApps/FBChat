@@ -12,20 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
-         android:padding="5dp"
         android:onClick="onClick"
         android:layout_alignParentRight="true"
          android:layout_alignParentTop="true"/>
-
-     <Button
-         android:id="@+id/btn_openSampleChat"
-         android:text="open chat"
-         android:onClick="onClick"
-         android:padding="5dp"
-         android:layout_centerInParent="true"
-         android:layout_alignParentTop="true"
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content" />
 
      <android.support.v7.widget.RecyclerView
          android:id="@+id/rv_list_of_reged_users"

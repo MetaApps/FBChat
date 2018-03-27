@@ -3,9 +3,19 @@
     <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item
-            android:bitmap="@drawable/chat_bg_sent"/>
+            android:drawable="@color/colorSecondaryDark"/>
 
-
+        <item>
+            <shape android:shape="ring"
+                android:innerRadius="300dp"
+                android:thickness="30dp"
+                android:innerRadiusRatio="3"
+                android:useLevel="true">
+                    <stroke android:color="@color/white"
+                        android:width="50dp"/>
+                <solid android:color="@color/background_light"></solid>
+            </shape>
+        </item>
 
         <!--<item>
             <bitmap

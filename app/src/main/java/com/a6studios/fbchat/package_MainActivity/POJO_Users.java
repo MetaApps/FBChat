@@ -8,15 +8,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class POJO_Users {
     private String name;
-    private String reg_id;
-
-    public String getReg_id() {
-        return reg_id;
-    }
-
-    public void setReg_id(String reg_id) {
-        this.reg_id = reg_id;
-    }
 
     public POJO_Users(){}
 
@@ -28,7 +19,6 @@ public class POJO_Users {
         }
         else
             name = u.getDisplayName();
-        reg_id = u.getUid();
     }
     POJO_Users(String s)
     {

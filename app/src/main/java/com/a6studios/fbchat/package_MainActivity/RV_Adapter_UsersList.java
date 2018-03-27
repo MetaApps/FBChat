@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.a6studios.fbchat.R;
+import com.a6studios.fbchat.package_ChatBox.ChatBox;
 import com.a6studios.fbchat.package_OTPVerifiation.POJO_User;
 
 import org.w3c.dom.Text;
@@ -21,10 +22,14 @@ import java.util.ArrayList;
 
 class RV_ViewHolder_UsersList extends RecyclerView.ViewHolder implements View.OnClickListener{
     TextView mUserName;
-    public RV_ViewHolder_UsersList(View itemView) {
+    Context mContext;
+    ArrayList<POJO_Users> al;
+    public RV_ViewHolder_UsersList(View itemView,Context c,ArrayList<POJO_Users> al) {
         super(itemView);
         mUserName = itemView.findViewById(R.id.rv_item_name);
-        mUserName.setOnClickListener(this);
+        mContext = c;
+        this.al = al;
+        itemView.setOnClickListener(this);
 
     }
 
@@ -32,7 +37,8 @@ class RV_ViewHolder_UsersList extends RecyclerView.ViewHolder implements View.On
 
     @Override
     public void onClick(View v) {
-
+        Intent i = new Intent(mContext, ChatBox.class);
+        mContext.startActivity(i);
     }
 }
 
@@ -55,7 +61,7 @@ public class RV_Adapter_UsersList extends RecyclerView.Adapter {
         }
     }
 
-    void addUser(POJO_Users m)
+    public void addUser(POJO_Users m)
     {
         mUsers.add(m);
         notifyItemInserted(mUsers.size()-1);
@@ -67,7 +73,7 @@ public class RV_Adapter_UsersList extends RecyclerView.Adapter {
         LayoutInflater inflater = LayoutInflater.from(context);
         View v;
         v = inflater.inflate(R.layout.item_reged_user,parent,false);
-        return new RV_ViewHolder_UsersList(v);
+        return new RV_ViewHolder_UsersList(v,context,mUsers);
 
     }
 

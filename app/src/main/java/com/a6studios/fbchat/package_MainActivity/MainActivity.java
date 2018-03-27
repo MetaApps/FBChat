@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.a6studios.fbchat.package_ChatBox.ChatBox;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -67,22 +67,9 @@ public class MainActivity extends AppCompatActivity {
         });*/
         final ArrayList<POJO_Users> al = new ArrayList<POJO_Users>();
         //Getting Multiple documents:
-        db.collection("reged_users")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                POJO_Users u = document.toObject(POJO_Users.class);
-                                al.add(u);
-                                mAdapter.addUser(u);
-                            }
-                        } else {
-                            Log.d("ERROR", "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
+        FirestoreDataBase fdb = FirestoreDataBase.getFirestoreDatabase();
+        fdb.getRegedUsersList(mAdapter);
+
     }
 
     public void onStart() {
@@ -97,23 +84,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirestoreDataBase.cleanUp();
+    }
+
     public void onClick(View view) {
-        View v = view;
-        Intent i;
-        switch (v.getId())
-        {
-            case R.id.logout_btn:
-                FirebaseAuth.getInstance().signOut();
-                i=new Intent(this,OTPVerification.class);
-                startActivity(i);
-                finish();
-                break;
-            case  R.id.btn_openSampleChat:
-                i=new Intent(this, ChatBox.class);
-                startActivity(i);
-                break;
-
-
-        }
+        FirebaseAuth.getInstance().signOut();
+        onStart();
     }
 }
