@@ -1,6 +1,9 @@
 package com.a6studios.fbchat.package_MainActivity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tv;
     RecyclerView rvUsers;
     FirestoreDataBase fdb;
-    RV_Adapter_UsersList mAdapter;
+    RV_Adapter_UsersList mAdapter,mLiveAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager m = new LinearLayoutManager(this);
         rvUsers.setLayoutManager(m);
         mAdapter = new RV_Adapter_UsersList(this);
+        mLiveAdapter = new RV_Adapter_UsersList(this);
         rvUsers.setAdapter(mAdapter);
         fdb = FirestoreDataBase.getFirestoreDatabase();
         /*//Getting one single document
@@ -68,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
         });*/
         //Getting Multiple documents:
 
-        fdb.setmQuery(fdb.getDb().collection("reged_users"));
-        fdb.setmListenerRegistration(mAdapter);
 
     }
 
@@ -86,12 +89,20 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             fdb = FirestoreDataBase.getFirestoreDatabase();
+
+            fdb.setmQuery(fdb.getDb().collection("reged_users").orderBy("name"));
+            fdb.getRegedUsersList(mAdapter);
+            fdb.setmListenerRegistration(mLiveAdapter);
+            rvUsers.swapAdapter(mLiveAdapter,true);
+
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+
     }
 
     @Override
@@ -104,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick(View view) {
         FirebaseAuth.getInstance().signOut();
+        fdb.unregisterListnerRegistertion();
         onStart();
     }
 }

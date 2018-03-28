@@ -1,7 +1,9 @@
 package com.a6studios.fbchat;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.ProgressBar;
 
 import com.a6studios.fbchat.package_MainActivity.POJO_Users;
 import com.a6studios.fbchat.package_MainActivity.RV_Adapter_UsersList;
@@ -130,12 +132,15 @@ public class FirestoreDataBase {
     public void setmListenerRegistration (final RV_Adapter_UsersList mAdapter)
     {
         mListenerRegistration = mQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            int i = 0;
             @Override
             public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
                 for (DocumentChange dc :documentSnapshots.getDocumentChanges()){
+                    i++;
                     POJO_Users u = dc.getDocument().toObject(POJO_Users.class);
                     if(u.getUID().compareTo(firebaseUser.getUid())!=0)
                         mAdapter.addUser(u);
+
                 }
             }
         });
