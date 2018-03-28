@@ -5,8 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#efe7de"
+    android:background="@drawable/chat_bg"
     tools:context="com.a6studios.fbchat.package_ChatBox.ChatBox">
+    <android.support.design.widget.AppBarLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/displayName">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_displayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                android:text="Chat"
+                android:id="@+id/tv_displayName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:textSize="30sp"
+                android:typeface="sans"/>
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:iconifiedByDefault="true"
+                android:queryHint="Search"
+                android:layout_weight="1"/>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvMessages"
         android:layout_width="match_parent"

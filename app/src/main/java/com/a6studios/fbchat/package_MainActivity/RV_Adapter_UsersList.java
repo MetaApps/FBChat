@@ -38,6 +38,8 @@ class RV_ViewHolder_UsersList extends RecyclerView.ViewHolder implements View.On
     @Override
     public void onClick(View v) {
         Intent i = new Intent(mContext, ChatBox.class);
+        i.putExtra("toUID",al.get(getAdapterPosition()).getUID());
+        i.putExtra("toName",al.get(getAdapterPosition()).getName());
         mContext.startActivity(i);
     }
 }

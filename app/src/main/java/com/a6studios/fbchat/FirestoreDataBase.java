@@ -77,7 +77,8 @@ public class FirestoreDataBase {
                                 POJO_Users u = document.toObject(POJO_Users.class);
                                 FirestoreDataBase fdb = FirestoreDataBase.getFirestoreDatabase();
                                 String name = fdb.getFirebaseUser().getDisplayName();
-                                mAdapter.addUser(u);
+                                if(u.getUID().compareTo(firebaseUser.getUid())!=0)
+                                    mAdapter.addUser(u);
                             }
                         } else {
                             Log.d("ERROR", "Error getting documents: ", task.getException());
