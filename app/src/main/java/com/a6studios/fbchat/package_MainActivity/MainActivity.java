@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
         //Getting Multiple documents:
-
-
     }
 
     public void onStart() {
@@ -91,7 +89,9 @@ public class MainActivity extends AppCompatActivity {
             fdb = FirestoreDataBase.getFirestoreDatabase();
 
             fdb.setmQuery(fdb.getDb().collection("reged_users").orderBy("name"));
+
             fdb.getRegedUsersList(mAdapter);
+
         }
     }
 
@@ -101,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         fdb.setmListenerRegistration(mLiveAdapter);
         rvUsers.swapAdapter(mLiveAdapter,true);
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 
     @Override
@@ -116,4 +121,6 @@ public class MainActivity extends AppCompatActivity {
         fdb.unregisterListnerRegistertion();
         onStart();
     }
+
+
 }

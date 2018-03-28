@@ -1,5 +1,6 @@
 package com.a6studios.fbchat.package_ChatBox;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import com.a6studios.fbchat.FirestoreDataBase;
 import com.a6studios.fbchat.R;
+import com.a6studios.fbchat.package_MainActivity.MainActivity;
 
 public class ChatBox extends AppCompatActivity {
     String toName;
@@ -45,6 +47,14 @@ public class ChatBox extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
