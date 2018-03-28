@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        fdb = FirestoreDataBase.getFirestoreDatabase();
         fdb.unregisterListnerRegistertion();
         FirestoreDataBase.cleanUp();
     }

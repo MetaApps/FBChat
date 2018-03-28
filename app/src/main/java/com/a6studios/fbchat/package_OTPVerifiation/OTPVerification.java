@@ -71,4 +71,12 @@ public class OTPVerification extends AppCompatActivity {
             Log.e("Login","Unknown sign in response");
         }
     }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        FirestoreDataBase fdb = FirestoreDataBase.getFirestoreDatabase();
+        fdb.unregisterListnerRegistertion();
+        FirestoreDataBase.cleanUp();
+    }
+
 }
