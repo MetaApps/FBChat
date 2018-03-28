@@ -13,10 +13,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -34,8 +38,11 @@ public class FirestoreDataBase {
     private static FirebaseFirestoreSettings settings;
     private static FirebaseUser firebaseUser;
     private static String UserId ;
+    private static Query mQuery;
+    private static ListenerRegistration mListenerRegistration;
     private static final String rUsers = "reged_users";
     private static final String TAG = "MY FiREBASE ERROR";
+
 
 
     FirestoreDataBase()
@@ -108,7 +115,37 @@ public class FirestoreDataBase {
         db.collection(rUsers).document(getUserId()).set(m);
     }
 
+    public Query getmQuery() {
+        return mQuery;
+    }
 
+    public void setmQuery(Query mQuery) {
+        FirestoreDataBase.mQuery = mQuery;
+    }
+
+    public ListenerRegistration getmListnerRegistration() {
+        return mListenerRegistration;
+    }
+
+    public void setmListenerRegistration (final RV_Adapter_UsersList mAdapter)
+    {
+        mListenerRegistration = mQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
+                for (DocumentChange dc :documentSnapshots.getDocumentChanges()){
+                    POJO_Users u = dc.getDocument().toObject(POJO_Users.class);
+                    if(u.getUID().compareTo(firebaseUser.getUid())!=0)
+                        mAdapter.addUser(u);
+                }
+            }
+        });
+    }
+
+    public void unregisterListnerRegistertion()
+    {
+       if(mListenerRegistration!=null)
+            mListenerRegistration.remove();
+    }
 
     public static void cleanUp()
     {
@@ -117,6 +154,8 @@ public class FirestoreDataBase {
         db = null;
         settings=null;
         mFirestoreDatabase = null;
+        mQuery =null;
+        mListenerRegistration=null;
     }
 
 }

@@ -42,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     TextView tv;
     RecyclerView rvUsers;
-    RV_Adapter_UsersList mAdapter_usersList;
+    FirestoreDataBase fdb;
+    RV_Adapter_UsersList mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         rvUsers = (RecyclerView)findViewById(R.id.rv_list_of_reged_users);
         LinearLayoutManager m = new LinearLayoutManager(this);
         rvUsers.setLayoutManager(m);
-        final RV_Adapter_UsersList mAdapter = new RV_Adapter_UsersList(this);
+        mAdapter = new RV_Adapter_UsersList(this);
         rvUsers.setAdapter(mAdapter);
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
+        fdb = FirestoreDataBase.getFirestoreDatabase();
         /*//Getting one single document
 
         CollectionReference users = FirebaseFirestore.getInstance().collection("reged_users");
@@ -65,10 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext()," nam "+user.getName(),Toast.LENGTH_SHORT).show();
             }
         });*/
-        final ArrayList<POJO_Users> al = new ArrayList<POJO_Users>();
         //Getting Multiple documents:
-        FirestoreDataBase fdb = FirestoreDataBase.getFirestoreDatabase();
-        fdb.getRegedUsersList(mAdapter);
+
+        fdb.setmQuery(fdb.getDb().collection("reged_users"));
+        fdb.setmListenerRegistration(mAdapter);
 
     }
 
@@ -82,11 +83,21 @@ public class MainActivity extends AppCompatActivity {
             FirestoreDataBase.cleanUp();
             finish();
         }
+        else
+        {
+            fdb = FirestoreDataBase.getFirestoreDatabase();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        fdb.unregisterListnerRegistertion();
         FirestoreDataBase.cleanUp();
     }
 
