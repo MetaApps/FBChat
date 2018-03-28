@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-        rvUsers = (RecyclerView)findViewById(R.id.rv_list_of_reged_users);
+        rvUsers = findViewById(R.id.rv_list_of_reged_users);
         LinearLayoutManager m = new LinearLayoutManager(this);
         rvUsers.setLayoutManager(m);
         mAdapter = new RV_Adapter_UsersList(this);
@@ -92,16 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
             fdb.setmQuery(fdb.getDb().collection("reged_users").orderBy("name"));
             fdb.getRegedUsersList(mAdapter);
-            fdb.setmListenerRegistration(mLiveAdapter);
-            rvUsers.swapAdapter(mLiveAdapter,true);
-
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        fdb.setmListenerRegistration(mLiveAdapter);
+        rvUsers.swapAdapter(mLiveAdapter,true);
 
     }
 
